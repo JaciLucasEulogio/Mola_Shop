@@ -13,11 +13,11 @@ const ProductReviewCard = () => {
             <Grid item xs={9}>
                 <div className='space-y-2'>
                     <div>
-                        <p>Raam</p>
-                        <p>June 7, 2024</p>
+                        <p className='font-semibold text-lg'>Raam</p>
+                        <p className='opacity-70'>June 7, 2024</p>
                     </div>
                 </div>
-                <Rating value={4.5} name='half-rating'/>
+                <Rating value={4.5} name='half-rating' readOnly precision={.5}/>
                 <p >Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
             </Grid>
         </Grid>
