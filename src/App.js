@@ -20,13 +20,7 @@ function App() {
       </Routes>
       
       <div>
-        {/* <HomePage/> */}
-        {/* <Product/> */}
-        {/* <ProductDetails/> */}
-        {/* <Cart/> */}
-        {/* <Checkout/> */}
-        {/* <Order/> */}
-        {/* <OrderDetails/> */}
+        
       </div>
       
       
