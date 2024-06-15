@@ -1,22 +1,14 @@
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { Button, Grid, IconButton, InputAdornment, TextField } from '@mui/material';
-import React, { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useState } from 'react'
+import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { getUser, login } from '../../State/Auth/Action';
+import { login } from '../../State/Auth/Action';
 
 const LoginForm = () => {
   const dispatch=useDispatch();
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
-  const jwt=localStorage.getItem('jwt');
-  const {auth}=useSelector(store=>store);
-
-  useEffect(()=>{
-    if(jwt){
-      dispatch(getUser(jwt));
-    }
-  },[jwt,auth.jwt])
 
   const handleClickShowPassword = () => {
     setShowPassword(!showPassword);
