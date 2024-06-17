@@ -45,11 +45,11 @@ export const singleFilter =[
         id:"price",
         name:"Price",
         options:[
-            {value:"0-200", label:"under $200"},
-            {value:"200-300", label:"$200 - $300"},
-            {value:"300-400", label:"$300 - $400"},
-            {value:"400-500", label:"$400 - $500"},
-            {value:"500", label:"Over $500"}
+            {value:"159-399", label:"159-399"},
+            {value:"399-999", label:"399-999"},
+            {value:"999-1999", label:"999-1999"},
+            {value:"1999-2999", label:"1999-2999"},
+            {value:"3999-4999", label:"3999-4999"}
         ],
     },
     {

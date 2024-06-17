@@ -1,8 +1,15 @@
 import { Box, Button, Grid, TextField } from '@mui/material'
 import React from 'react'
 import AddressCard from '../AddressCard.jsx/AddressCard'
+import { useDispatch, useSelector } from 'react-redux'
+import { createOrder } from '../../../State/Order/Action'
+import { useNavigate } from 'react-router-dom'
 
 const DeliveryAddressForm = () => {
+
+    const dispatch=useDispatch();
+    const navigate=useNavigate();
+    const {order} = useSelector(store=>store);
 
     const handleSubmit=(e)=>{
         e.preventDefault();
@@ -11,21 +18,21 @@ const DeliveryAddressForm = () => {
         const address = {
             firstName:data.get('firstName'),
             lastName:data.get('lastName'),
-            address:data.get('address'),
+            streetAddress:data.get('address'),
             city:data.get('city'),
             state:data.get('state'),
-            zip:data.get('zip'),
-            phoneNumber:data.get('phoneNumber')
+            zipCode:data.get('zip'),
+            mobile:data.get('phoneNumber').toString()
         }
-
-        console.log("Address",address)
+        const orderData={address, navigate}
+        dispatch(createOrder(orderData))
     }
   return (
     <div>
         <Grid container spacing={4}>
             <Grid xs={12} lg={5} className='border rounded-e-md shadow-md h-[30.5rem] overflow-y-scroll'>
                 <div className='p-5 py-7 border-b cursor-pointer'>
-                    <AddressCard/>
+                    <AddressCard address={order.order?.shippingAddress}/>
                     <Button sx={{mt:2, bgcolor:"RGB(145 85 253)"}} size='large' variant='contained'>Deliver Here</Button>
                 </div>
             </Grid>

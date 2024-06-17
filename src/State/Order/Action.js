@@ -13,14 +13,6 @@ export const createOrder = (reqData) => async (dispatch) =>{
     //console.log("req data", reqData);
     dispatch({ type:CREATE_ORDER_REQUEST });
     try{
-        
-
-        /*const config = {
-            headers: {
-                "Content-Type":"application/json",
-                Authorization: `Bearer ${reqData.jwt}`,
-            },
-        };*/
         const {data} = await api.post(
             `/api/orders/`,
             reqData.address,
