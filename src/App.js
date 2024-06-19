@@ -19,11 +19,6 @@ function App() {
         <Route path='/*' element={<CustomerRoutes/>}></Route>
       </Routes>
       
-      <div>
-        
-      </div>
-      
-      
     </div>
   );
 }

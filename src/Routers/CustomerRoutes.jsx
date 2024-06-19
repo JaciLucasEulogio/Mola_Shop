@@ -9,6 +9,7 @@ import ProductDetails from '../customer/components/ProductDetails/ProductDetails
 import Checkout from '../customer/components/Checkout/Checkout'
 import Order from '../customer/components/Order/Order'
 import OrderDetails from '../customer/components/Order/OrderDetails'
+import TawkTo from '../customer/components/ChatBot/TawkTo'
 
 
 const CustomerRoutes = () => {
@@ -17,6 +18,9 @@ const CustomerRoutes = () => {
         <div>
             <Navigation/>
         </div>
+        <div>
+          <TawkTo/>
+        </div >
         <Routes>
             <Route path='/' element={<HomePage/>}></Route>
             <Route path='/login' element={<HomePage/>}></Route>

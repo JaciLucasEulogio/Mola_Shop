@@ -200,7 +200,7 @@ export default function Navigation() {
                               {section.items.map((item) => (
                                 <li key={item.name} className="flow-root">
                                   <p className="-m-2 block p-2 text-gray-500">
-                                    {"item.name"}
+                                    {item.name}
                                   </p>
                                 </li>
                               ))}
@@ -256,7 +256,7 @@ export default function Navigation() {
       </Transition.Root>
 
       <header className="relative bg-white">
-        <p className="flex h-10 items-center justify-center bg-indigo-600 px-4 text-sm font-medium text-white sm:px-6 lg:px-8">
+        <p className="flex h-10 items-center justify-center bg-[#7a38b9] px-4 text-sm font-medium text-white sm:px-6 lg:px-8">
           Get free delivery on orders over $100
         </p>
 
@@ -273,14 +273,13 @@ export default function Navigation() {
               </button>
 
               {/* Logo */}
-              <div className="ml-4 flex lg:ml-0 cursor-pointer" href="/" onClick={()=>navigate(`/`)}>
-                  <span className="sr-only">Your Company</span>
-                  <img
-                    src="./Logo/3.png"
-                    alt="Shopwithzosh"
-                    className="h-8 w-8 mr-2"
-                    href="/"
-                  />
+              <div className="ml-4 flex lg:ml-0 cursor-pointer" onClick={() => navigate(`/`)}>
+                <span className="sr-only">Your Company</span>
+                <img
+                  src="./Logo/3.png"
+                  alt="Shopwithzosh"
+                  className="h-12 w-12 mr-2"  
+                />
               </div>
 
               {/* Flyout menus */}
