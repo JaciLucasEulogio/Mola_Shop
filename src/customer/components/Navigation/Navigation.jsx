@@ -24,6 +24,7 @@ function classNames(...classes) {
 export default function Navigation() {
   const [open, setOpen] = useState(false);
   const navigate=useNavigate()
+  const [searchQuery, setSearchQuery] = useState('');
 
   const [openAuthModal, setOpenAuthModal] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
@@ -33,6 +34,16 @@ export default function Navigation() {
   const dispatch=useDispatch();
   const location=useLocation();
 
+  const handleInputChange = (event) => {
+    setSearchQuery(event.target.value);
+  };
+
+  const handleSearch = (event) => {
+    event.preventDefault();
+    if (searchQuery.trim()) {
+      navigate(`/search?query=${searchQuery}`);
+    }
+  };
 
   const handleUserClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -262,12 +273,13 @@ export default function Navigation() {
               </button>
 
               {/* Logo */}
-              <div className="ml-4 flex lg:ml-0">
+              <div className="ml-4 flex lg:ml-0 cursor-pointer" href="/" onClick={()=>navigate(`/`)}>
                   <span className="sr-only">Your Company</span>
                   <img
                     src="./Logo/3.png"
                     alt="Shopwithzosh"
                     className="h-8 w-8 mr-2"
+                    href="/"
                   />
               </div>
 
@@ -404,6 +416,28 @@ export default function Navigation() {
               </Popover.Group>
 
               <div className="ml-auto flex items-center">
+
+                {/* Search */}
+                <div className="flex items-center me-8 lg:ml-6">
+                  <form onSubmit={handleSearch} className="flex items-center">
+                    <input
+                      type="text"
+                      value={searchQuery}
+                      onChange={handleInputChange}
+                      className="p-2 border border-gray-300 rounded-md"
+                      placeholder="Search..."
+                    />
+                    <button
+                      type="submit"
+                      className="p-2 text-gray-400 hover:text-gray-500"
+                    >
+                      <span className="sr-only">Search</span>
+                      <MagnifyingGlassIcon className="h-6 w-6" aria-hidden="true" />
+                    </button>
+                  </form>
+                </div>
+
+                {/* User */}
                 <div className="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">
                   {auth.user?.firstName ? (
                     <div>
@@ -451,32 +485,20 @@ export default function Navigation() {
                   )}
                 </div>
 
-                {/* Search */}
-                <div className="flex items-center lg:ml-6">
                 
-                  <p className="p-2 text-gray-400 hover:text-gray-500">
-                    <span className="sr-only">Search</span>
-                    
-                    <MagnifyingGlassIcon
-                      className="h-6 w-6"
-                      aria-hidden="true"
-                    />
-                  </p>
-                </div>
 
                 {/* Cart */}
-                <div className="ml-4 flow-root lg:ml-6">
+                <div className="ml-4 flow-root lg:ml-6" onClick={()=>navigate(`/cart`)}>
                   <Button
-                    
                     className="group -m-2 flex items-center p-2"
                   >
                     <ShoppingBagIcon
                       className="h-6 w-6 flex-shrink-0 text-gray-400 group-hover:text-gray-500"
                       aria-hidden="true"
                     />
-                    <span className="ml-2 text-sm font-medium text-gray-700 group-hover:text-gray-800">
+                    {/* <span className="ml-2 text-sm font-medium text-gray-700 group-hover:text-gray-800">
                       0
-                    </span>
+                    </span> */}
                     <span className="sr-only">items in cart, view bag</span>
                   </Button>
                 </div>

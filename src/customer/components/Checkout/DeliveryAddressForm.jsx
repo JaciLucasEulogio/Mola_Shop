@@ -4,6 +4,7 @@ import AddressCard from '../AddressCard.jsx/AddressCard'
 import { useDispatch, useSelector } from 'react-redux'
 import { createOrder } from '../../../State/Order/Action'
 import { useNavigate } from 'react-router-dom'
+import PromoBanner from '../PromoBanner/PromoBanner'
 
 const DeliveryAddressForm = () => {
 
@@ -30,14 +31,14 @@ const DeliveryAddressForm = () => {
   return (
     <div>
         <Grid container spacing={4}>
-            <Grid xs={12} lg={5} className='border rounded-e-md shadow-md h-[30.5rem] overflow-y-scroll'>
+            {/* <Grid xs={12} lg={5} className='border rounded-e-md shadow-md h-[30.5rem] overflow-y-scroll'>
                 <div className='p-5 py-7 border-b cursor-pointer'>
                     <AddressCard address={order.order?.shippingAddress}/>
                     <Button sx={{mt:2, bgcolor:"RGB(145 85 253)"}} size='large' variant='contained'>Deliver Here</Button>
                 </div>
-            </Grid>
+            </Grid> */}
 
-            <Grid item xs={12} lg={7}>
+            <Grid item xs={12} lg={12}>
                 <Box className='border rounded-s-md shadow-md p-5'>
                     <form onSubmit={handleSubmit}>
                         <Grid container spacing={3}>
