@@ -41,7 +41,7 @@ export default function Navigation() {
   const handleSearch = (event) => {
     event.preventDefault();
     if (searchQuery.trim()) {
-      navigate(`/search?query=${searchQuery}`);
+      navigate(`/search?q=${searchQuery}`);
     }
   };
 

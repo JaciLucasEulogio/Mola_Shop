@@ -10,6 +10,7 @@ import Checkout from '../customer/components/Checkout/Checkout'
 import Order from '../customer/components/Order/Order'
 import OrderDetails from '../customer/components/Order/OrderDetails'
 import TawkTo from '../customer/components/ChatBot/TawkTo'
+import SearchResults from '../customer/components/SearchResults/SearchResults'
 
 
 const CustomerRoutes = () => {
@@ -31,7 +32,7 @@ const CustomerRoutes = () => {
             <Route path='/checkout' element={<Checkout />}></Route>
             <Route path='/account/order' element={<Order/>}></Route>
             <Route path='/account/order/:orderId' element={<OrderDetails />}></Route>
-
+            <Route path='/search' element={<SearchResults />}></Route>
         </Routes>
         <div>
             <Footer/>

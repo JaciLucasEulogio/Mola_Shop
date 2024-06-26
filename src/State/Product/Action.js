@@ -36,6 +36,18 @@ export const findProductsById = (productId) => async (dispatch) => {
     }
 };
 
+export const searchProducts = (query) => async (dispatch) => {
+    dispatch({ type: FIND_PRODUCTS_REQUEST });
+
+    try {
+        const { data } = await api.get(`/api/products/search?q=${query}`);
+        console.log("product data ", data);
+        dispatch({ type: FIND_PRODUCTS_SUCCESS, payload: data });
+    } catch (error) {
+        dispatch({ type: FIND_PRODUCTS_FAILURE, payload: error.message });
+    }
+}
+
 
 
 
