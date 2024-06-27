@@ -17,6 +17,8 @@ import AuthModal from "../../Auth/AuthModal";
 import { useDispatch, useSelector } from "react-redux";
 import { getUser, logout } from "../../../State/Auth/Action";
 
+import "./Navigation.css";
+
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
@@ -256,9 +258,9 @@ export default function Navigation() {
       </Transition.Root>
 
       <header className="relative bg-white">
-        <p className="flex h-10 items-center justify-center bg-[#7a38b9] px-4 text-sm font-medium text-white sm:px-6 lg:px-8">
-          Get free delivery on orders over $100
-        </p>
+      <div className="marquee-container flex h-10 items-center justify-center bg-[#7a38b9] px-4 text-sm font-medium text-white sm:px-6 lg:px-8">
+        <span className="marquee-text">Get free delivery on orders over $100</span>
+      </div>
 
         <nav aria-label="Top" className="mx-auto">
           <div className="border-b border-gray-200">
@@ -276,8 +278,8 @@ export default function Navigation() {
               <div className="ml-4 flex lg:ml-0 cursor-pointer" onClick={() => navigate(`/`)}>
                 <span className="sr-only">Your Company</span>
                 <img
-                  src="./Logo/3.png"
-                  alt="Shopwithzosh"
+                  src="https://i.ibb.co/tsZWMDS/3.png"
+                  alt="MolaShop"
                   className="h-12 w-12 mr-2"  
                 />
               </div>
@@ -312,7 +314,7 @@ export default function Navigation() {
                             leaveTo="opacity-0"
                           >
                             <Popover.Panel className="absolute inset-x-0 top-full text-sm text-gray-500">
-                              {/* Presentational element used to render the bottom shadow, if we put the shadow on the actual panel it pokes out the top, so we use this shorter element to hide the top of the shadow */}
+                            
                               <div
                                 className="absolute inset-0 top-1/2 bg-white shadow"
                                 aria-hidden="true"
