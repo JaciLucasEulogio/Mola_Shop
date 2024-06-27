@@ -51,7 +51,7 @@ export const searchProducts = (query) => async (dispatch) => {
 export const createProduct = (product) => async (dispatch) => {
     try {
       dispatch({ type: CREATE_PRODUCT_REQUEST });
-  
+      console.log("vengo del action",product)
       const { data } = await api.post(
         `/api/admin/products/`,
         product.data
@@ -112,7 +112,7 @@ export const createProduct = (product) => async (dispatch) => {
         payload: productId,
       });
   
-      console.log("product delte ",data)
+      console.log("product delete ",data)
     } catch (error) {
       console.log("catch error ",error)
       dispatch({

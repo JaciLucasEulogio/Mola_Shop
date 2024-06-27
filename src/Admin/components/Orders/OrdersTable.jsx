@@ -1,3 +1,4 @@
+import { ToastContainer, toast } from "react-toastify";
 import {
     Avatar,
     AvatarGroup,
@@ -93,7 +94,13 @@ import {
   
     const handleDeleteOrder = (orderId) => {
       handleUpdateStatusMenuClose();
-      dispatch(deleteOrder(orderId));
+      dispatch(deleteOrder(orderId)).then(() => {
+        // Actualizar la lista de órdenes después de eliminar
+        dispatch(getOrders({ jwt }));
+        toast.success("Orden borrada con éxito");
+      }).catch(error => {
+        toast.error("Error al borrar la orden");
+      });
     };
   
     //   useEffect(()=>{
@@ -102,6 +109,7 @@ import {
   
     return (
       <Box>
+        <ToastContainer />
         <Card className="p-3">
           <CardHeader
             title="Sort"
@@ -211,7 +219,7 @@ import {
                     </TableCell>
   
                     <TableCell>{item?.totalPrice}</TableCell>
-                    <TableCell>{item?._id}</TableCell>
+                    <TableCell>{item?.id}</TableCell>
                     <TableCell className="text-white">
                       <Chip
                         sx={{
@@ -234,8 +242,8 @@ import {
                       {/* <Button>{item.orderStatus==="PENDING"?"PENDING": item.orderStatus==="PLACED"?"CONFIRMED":item.orderStatus==="CONFIRMED"?"SHIPPED":"DELEVERED"}</Button> */}
                       <div>
                         <Button
-                          id={`basic-button-${item?._id}`}
-                          aria-controls={`basic-menu-${item._id}`}
+                          id={`basic-button-${item?.id}`}
+                          aria-controls={`basic-menu-${item.id}`}
                           aria-haspopup="true"
                           aria-expanded={Boolean(anchorElArray[index])}
                           onClick={(event) =>
@@ -245,16 +253,16 @@ import {
                           Status
                         </Button>
                         <Menu
-                          id={`basic-menu-${item?._id}`}
+                          id={`basic-menu-${item?.id}`}
                           anchorEl={anchorElArray[index]}
                           open={Boolean(anchorElArray[index])}
                           onClose={() => handleUpdateStatusMenuClose(index)}
                           MenuListProps={{
-                            "aria-labelledby": `basic-button-${item._id}`,
+                            "aria-labelledby": `basic-button-${item.id}`,
                           }}
                         >
                           <MenuItem
-                            onClick={() => handleConfirmedOrder(item?._id, index)}
+                            onClick={() => handleConfirmedOrder(item?.id, index)}
                             disabled={item.orderStatus==="DELEVERED" || item.orderStatus==="SHIPPED" || item.orderStatus==="CONFIRMED"}
                           >
                             CONFIRMED ORDER
@@ -262,11 +270,11 @@ import {
                           </MenuItem>
                           <MenuItem
                           disabled={item.orderStatus==="DELIVERED" || item.orderStatus==="SHIPPED"}
-                            onClick={() => handleShippedOrder(item._id, index)}
+                            onClick={() => handleShippedOrder(item.id, index)}
                           >
                             SHIPPED ORDER
                           </MenuItem>
-                          <MenuItem onClick={() => handleDeliveredOrder(item._id)}>
+                          <MenuItem onClick={() => handleDeliveredOrder(item.id)}>
                             DELIVERED ORDER
                           </MenuItem>
                         </Menu>
@@ -277,7 +285,7 @@ import {
                       className="text-white"
                     >
                       <Button
-                        onClick={() => handleDeleteOrder(item._id)}
+                        onClick={() => handleDeleteOrder(item.id)}
                         variant="text"
                       >
                         delete

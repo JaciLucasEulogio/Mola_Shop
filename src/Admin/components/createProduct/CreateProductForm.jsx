@@ -1,20 +1,11 @@
 import { useState } from "react";
-import { Typography } from "@mui/material";
-import {
-  Grid,
-  TextField,
-  Button,
-  FormControl,
-  InputLabel,
-  Select,
-  MenuItem,
-} from "@mui/material";
-
+import { Typography, Grid, TextField, Button, FormControl, InputLabel, Select, MenuItem } from "@mui/material";
 import { Fragment } from "react";
-import "./CreateProductForm.css";
 import { useDispatch } from "react-redux";
 import { createProduct } from "../../../State/Product/Action";
-
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import "./CreateProductForm.css";
 
 const initialSizes = [
   { name: "S", quantity: 0 },
@@ -23,7 +14,6 @@ const initialSizes = [
 ];
 
 const CreateProductForm = () => {
-  
   const [productData, setProductData] = useState({
     imageUrl: "",
     brand: "",
@@ -34,28 +24,28 @@ const CreateProductForm = () => {
     discountPersent: "",
     size: initialSizes,
     quantity: "",
-    topLavelCategory: "",
-    secondLavelCategory: "",
-    thirdLavelCategory: "",
+    topLevelCategory: "",
+    secondLevelCategory: "",
+    thirdLevelCategory: "",
     description: "",
   });
-const dispatch=useDispatch();
-const jwt=localStorage.getItem("jwt")
+  const dispatch = useDispatch();
+  const jwt = localStorage.getItem("jwt");
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setProductData((prevState) => ({
       ...prevState,
-      [name]: value,
+      [name]: name === "discountedPrice" || name === "price" || name === "discountPersent" || name === "quantity" 
+              ? parseFloat(value) 
+              : value,
     }));
   };
 
   const handleSizeChange = (e, index) => {
-    let { name, value } = e.target;
-    name==="size_quantity"?name="quantity":name=e.target.name;
-
+    const { name, value } = e.target;
     const sizes = [...productData.size];
-    sizes[index][name] = value;
+    sizes[index][name === "size_quantity" ? "quantity" : name] = parseInt(value, 10);
     setProductData((prevState) => ({
       ...prevState,
       size: sizes,
@@ -64,53 +54,42 @@ const jwt=localStorage.getItem("jwt")
 
   const handleAddSize = () => {
     const sizes = [...productData.size];
-    sizes.push({ name: "", quantity: "" });
+    sizes.push({ name: "", quantity: 0 });
     setProductData((prevState) => ({
       ...prevState,
       size: sizes,
     }));
   };
 
-  // const handleRemoveSize = (index) => {
-  //   const sizes = [...productData.size];
-  //   sizes.splice(index, 1);
-  //   setProductData((prevState) => ({
-  //     ...prevState,
-  //     size: sizes,
-  //   }));
-  // };
-
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(createProduct({data:productData,jwt}))
-    console.log(productData);
+    dispatch(createProduct({ data: productData, jwt }));
+    toast.success("Product created successfully!");
+    setProductData({
+      imageUrl: "",
+      brand: "",
+      title: "",
+      color: "",
+      discountedPrice: "",
+      price: "",
+      discountPersent: "",
+      size: initialSizes,
+      quantity: "",
+      topLevelCategory: "",
+      secondLevelCategory: "",
+      thirdLevelCategory: "",
+      description: "",
+    });
   };
 
-  // const handleAddProducts=(data)=>{
-  //   for(let item of data){
-  //     const productsData={
-  //       data:item,
-  //       jwt,
-  //     }
-  //     dispatch(createProduct(productsData))
-  //   }
-  // }
-
   return (
-    <Fragment className="createProductContainer ">
-      <Typography
-        variant="h3"
-        sx={{ textAlign: "center" }}
-        className="py-10 text-center "
-      >
+    <Fragment>
+      <Typography variant="h3" sx={{ textAlign: "center" }} className="py-10 text-center">
         Add New Product
       </Typography>
-      <form
-        onSubmit={handleSubmit}
-        className="createProductContainer min-h-screen"
-      >
+      <form onSubmit={handleSubmit} className="createProductContainer">
         <Grid container spacing={2}>
-          <Grid item xs={12}>
+        <Grid item xs={12}>
             <TextField
               fullWidth
               label="Image URL"
@@ -128,7 +107,6 @@ const jwt=localStorage.getItem("jwt")
               onChange={handleChange}
             />
           </Grid>
-        
           <Grid item xs={12} sm={6}>
             <TextField
               fullWidth
@@ -177,7 +155,6 @@ const jwt=localStorage.getItem("jwt")
               type="number"
             />
           </Grid>
-          
           <Grid item xs={12} sm={4}>
             <TextField
               fullWidth
@@ -192,14 +169,14 @@ const jwt=localStorage.getItem("jwt")
             <FormControl fullWidth>
               <InputLabel>Top Level Category</InputLabel>
               <Select
-                name="topLavelCategory"
-                value={productData.topLavelCategory}
+                name="topLevelCategory"
+                value={productData.topLevelCategory}
                 onChange={handleChange}
                 label="Top Level Category"
               >
-                <MenuItem value="men">Men</MenuItem>
-                <MenuItem value="women">Women</MenuItem>
-                <MenuItem value="kids">Kids</MenuItem>
+                <MenuItem value="Men">Men</MenuItem>
+                <MenuItem value="Women">Women</MenuItem>
+                <MenuItem value="Kids">Kids</MenuItem>
               </Select>
             </FormControl>
           </Grid>
@@ -207,14 +184,15 @@ const jwt=localStorage.getItem("jwt")
             <FormControl fullWidth>
               <InputLabel>Second Level Category</InputLabel>
               <Select
-                name="secondLavelCategory"
-                value={productData.secondLavelCategory}
+                name="secondLevelCategory"
+                value={productData.secondLevelCategory}
                 onChange={handleChange}
                 label="Second Level Category"
               >
-                <MenuItem value="clothing">Clothing</MenuItem>
-                <MenuItem value="accessories">Accessories</MenuItem>
-                <MenuItem value="brands">Brands</MenuItem>
+                <MenuItem value="Clothing">Clothing</MenuItem>
+                <MenuItem value="Accessories">Accessories</MenuItem>
+                <MenuItem value="Brands">Brands</MenuItem>
+                <MenuItem value="Footwear">Footwear</MenuItem>
               </Select>
             </FormControl>
           </Grid>
@@ -222,16 +200,18 @@ const jwt=localStorage.getItem("jwt")
             <FormControl fullWidth>
               <InputLabel>Third Level Category</InputLabel>
               <Select
-                name="thirdLavelCategory"
-                value={productData.thirdLavelCategory}
+                name="thirdLevelCategory"
+                value={productData.thirdLevelCategory}
                 onChange={handleChange}
                 label="Third Level Category"
               >
-                <MenuItem value="top">Tops</MenuItem>
-                <MenuItem value="women_dress">Dresses</MenuItem>
-                <MenuItem value="t-shirts">T-Shirts</MenuItem>
-                <MenuItem value="saree">Saree</MenuItem>
-                <MenuItem value="lengha_choli">Lengha Choli</MenuItem>
+                <MenuItem value="men_jeans">Men Jeans</MenuItem>
+                <MenuItem value="shirt">Shirts</MenuItem>
+                <MenuItem value="top">Women Tops</MenuItem>
+                <MenuItem value="women_dress">Women Dresses</MenuItem>
+                <MenuItem value="women_jeans">Women Jeans</MenuItem>
+                <MenuItem value="Running Shoes">Running Shoes</MenuItem>
+                <MenuItem value="women_t-shirt">Women T-shirt</MenuItem>
               </Select>
             </FormControl>
           </Grid>
@@ -248,7 +228,7 @@ const jwt=localStorage.getItem("jwt")
             />
           </Grid>
           {productData.size.map((size, index) => (
-            <Grid container item spacing={3} >
+            <Grid container item spacing={3} key={index}>
               <Grid item xs={12} sm={6}>
                 <TextField
                   label="Size Name"
@@ -268,33 +248,27 @@ const jwt=localStorage.getItem("jwt")
                   required
                   fullWidth
                 />
-              </Grid> </Grid>
-            
+              </Grid>
+            </Grid>
           ))}
-          <Grid item xs={12} >
-            <Button
-              variant="contained"
-              sx={{ p: 1.8 }}
-              className="py-20"
-              size="large"
-              type="submit"
-            >
-              Add New Product
-            </Button>
-            {/* <Button
-              variant="contained"
-              sx={{ p: 1.8 }}
-              className="py-20 ml-10"
-              size="large"
-              onClick={()=>handleAddProducts(dressPage1)}
-            >
-              Add Products By Loop
-            </Button> */}
-          </Grid>
+        </Grid>
+        <Grid item xs={12} className="py-10">
+          <Button
+            variant="contained"
+            sx={{ p: 1.8 }}
+            className="py-20"
+            size="large"
+            type="submit"
+          >
+            Add New Product
+          </Button>
         </Grid>
       </form>
+      <ToastContainer position="top-center" autoClose={3000} hideProgressBar />
     </Fragment>
   );
 };
 
 export default CreateProductForm;
+
+
