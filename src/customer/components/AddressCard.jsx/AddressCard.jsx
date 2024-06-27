@@ -1,7 +1,7 @@
 import React from 'react';
 
 const AddressCard = ({ address }) => {
-  console.log("CARDADD",  address);
+  console.log("direccion",  address);
 
   return (
     <div>

@@ -11,12 +11,14 @@ import Order from './customer/components/Order/Order.jsx';
 import OrderDetails from './customer/components/Order/OrderDetails.jsx';
 import { Route, Routes } from 'react-router-dom';
 import CustomerRoutes from './Routers/CustomerRoutes.jsx';
+import AdminPannel from './Admin/AdminPannel.jsx';
 
 function App() {
   return (
     <div >
       <Routes>
         <Route path='/*' element={<CustomerRoutes/>}></Route>
+        <Route path="/admin/*" element={<AdminPannel />} />
       </Routes>
       
     </div>
