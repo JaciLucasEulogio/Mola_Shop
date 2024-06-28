@@ -14,18 +14,21 @@ const Cart = () => {
   
     useEffect(() => {
       dispatch(getCart(jwt));
-    }, [jwt]);
+    }, [jwt,cart.updateCartItem, cart.deleteCartItem]);
     return (
       <div className="">
-        {cart.cartItems.length>0 && <div className="lg:grid grid-cols-3 lg:px-16 relative">
+        {cart.cartItems?.length>0 && <div className="lg:grid grid-cols-3 lg:px-16 relative">
           <div className="lg:col-span-2 lg:px-5 bg-white">
-          <div className=" space-y-3">
-            {cart.cartItems.map((item) => (
+          {/* <div className=" space-y-3">
+            {cart.cartItems?.map((item) => (
               <>
                 <CartItem item={item} showButton={true}/>
               </>
             ))}
-          </div>
+          </div> */}
+          <div className='space-y-3'>
+                {cart.cart?.cartItems.map((item)=><CartItem item={item} showButton={true}/>)}
+            </div>
         </div>
         <div className="px-5 sticky top-0 h-[100vh] mt-5 lg:mt-0 ">
           <div className="border p-5 bg-white shadow-lg rounded-md">
@@ -35,7 +38,7 @@ const Cart = () => {
             <div className="space-y-3 font-semibold">
               <div className="flex justify-between pt-3 text-black ">
                 <span>Price ({cart.cart?.totalItem} item)</span>
-                <span>${cart.cart.totalPrice}</span>
+                <span>${cart.cart?.totalPrice}</span>
               </div>
               <div className="flex justify-between">
                 <span>Discount</span>

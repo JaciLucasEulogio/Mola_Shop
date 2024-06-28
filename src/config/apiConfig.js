@@ -1,5 +1,6 @@
 import axios from "axios";
 
+// export const API_BASE_URL="http://localhost:5454";
 export const API_BASE_URL="https://mola-shop-backend-production.up.railway.app";
 
 const jwt=localStorage.getItem('jwt');
