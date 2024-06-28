@@ -121,6 +121,6 @@ export const navigation = {
     ],
     pages: [
       { name: 'Company', id: '/' },
-      { name: 'Stores', id: '/' },
+      { name: 'Contact Us', id: '/contact' },
     ],
   }

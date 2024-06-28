@@ -5,7 +5,7 @@ import { deepPurple } from "@mui/material/colors";
 import StarIcon from "@mui/icons-material/Star";
 import { getOrderById } from "../../../State/Order/Action";
 import OrderTracker from "../Order/OrderTracker";
-import AddressCard from "../AddressCard.jsx/AddressCard";
+import AddressCard from "../AddressCard/AddressCard";
 import { useParams } from "react-router-dom";
 
 const PaymentSuccess = () => {

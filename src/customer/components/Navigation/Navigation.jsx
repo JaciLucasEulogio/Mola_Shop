@@ -214,7 +214,7 @@ export default function Navigation() {
                   </Tab.Panels>
                 </Tab.Group>
 
-                <div className="space-y-6 border-t border-gray-200 px-4 py-6">
+                <div className="space-y-6 border-t border-gray-200 px-4 py-6 cursor-pointer">
                   {navigation.pages.map((page) => (
                     <div key={page.name} className="flow-root">
                       <a
@@ -408,7 +408,8 @@ export default function Navigation() {
                     <a
                       key={page.name}
                       href={page.href}
-                      className="flex items-center text-sm font-medium text-gray-700 hover:text-gray-800"
+                      className="flex items-center text-sm font-medium text-gray-700 hover:text-gray-800 cursor-pointer"
+                      onClick={() => navigate(page.id)}
                     >
                       {page.name}
                     </a>
@@ -467,8 +468,8 @@ export default function Navigation() {
                           "aria-labelledby": "basic-button",
                         }}
                       >
-                        <MenuItem>
-                          Profile
+                        <MenuItem onClick={()=>navigate("/admin")}>
+                          Admin
                         </MenuItem>
                         <MenuItem onClick={()=>navigate("/account/order")}>
                           My orders

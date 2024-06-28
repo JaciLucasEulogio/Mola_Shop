@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import MainCarousel from '../../components/HomeCarousel/MainCarousel'
 import HomeSectionCarousel from '../../components/HomeSectionCarousel/HomeSectionCarousel'
 import AdComponent from '../../components/AddComponent/AddComponent'
@@ -7,7 +7,6 @@ import {women_t} from '../../../data/Mens/women_t-shirt'
 import PromoBanner from '../../components/PromoBanner/PromoBanner'
 
 const HomePage = () => {
-
   return (
     <div className='mt-[-2.5rem]'>
         <MainCarousel/>
@@ -16,7 +15,7 @@ const HomePage = () => {
             <HomeSectionCarousel data={mens_shirt} sectionName={"Men's"}/>
             <HomeSectionCarousel data={women_t} sectionName={"Women's"}/>
             <HomeSectionCarousel data={mens_shirt} sectionName={"Kid's"}/>
-            <HomeSectionCarousel data={mens_shirt} sectionName={"Stuff's"}/>
+            <HomeSectionCarousel data={women_t} sectionName={"Stuff's"}/>
         </div>
         <div className='mb-[-2.5rem]'>
           <PromoBanner/>

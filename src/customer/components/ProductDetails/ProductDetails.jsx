@@ -11,6 +11,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { findProductsById } from '../../../State/Product/Action'
 import { toInteger } from 'lodash'
 import { addItemToCart } from '../../../State/Cart/Action'
+import { ToastContainer, toast } from 'react-toastify'
 
 const producto = {
     name: 'Basic Tee 6-Pack',
@@ -68,29 +69,37 @@ function classNames(...classes) {
 }
 
 export default function ProductDetails() {
-    const [selectedColor, setSelectedColor] = useState()
-    const [selectedSize, setSelectedSize] = useState()
-    const navigate=useNavigate();
-    const params=useParams();
-    const dispatch=useDispatch();
-    const {product}=useSelector(store => store)
+    const [selectedSize, setSelectedSize] = useState(null);
+  const navigate = useNavigate();
+  const params = useParams();
+  const dispatch = useDispatch();
+  const { product } = useSelector((store) => store);
 
-    const handleAddToCart=()=>{
-        const data={productId:params.productId,size:selectedSize.name}
-        console.log("data add to cart",data)
-        dispatch(addItemToCart(data))
-        navigate('/cart')
+  const handleAddToCart = () => {
+    if (!selectedSize) {
+      toast.error('Please select a size before adding to cart.');
+      return;
     }
 
-    useEffect(()=>{
-        dispatch(findProductsById(toInteger(params.productId)))
-        console.log("-------",toInteger(params.productId))
-    },[params.productId])
+    const data = {
+      productId: params.productId,
+      size: selectedSize.name,
+    };
+
+    dispatch(addItemToCart(data));
+    toast.success('Product added to cart!');
+    navigate('/cart');
+  };
+
+  useEffect(() => {
+    dispatch(findProductsById(parseInt(params.productId)));
+  }, [dispatch, params.productId]);
 
     console.log("product ",product.product)
 
     return (
         <div className="bg-white lg:px-20">
+            <ToastContainer />
             <div className="pt-6">
                 <nav aria-label="Breadcrumb">
                     <ol role="list" className="mx-auto flex max-w-2xl items-center space-x-2 px-4 sm:px-6 lg:max-w-7xl lg:px-8">

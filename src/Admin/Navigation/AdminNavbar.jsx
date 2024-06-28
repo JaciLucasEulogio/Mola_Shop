@@ -169,6 +169,7 @@ export default function AdminNavbar({handleSideBarViewInMobile}) {
       </MenuItem>
     </Menu>
   );
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="fixed" sx={{ zIndex: (theme) => theme.zIndex.drawer + isLargeScreen, backgroundColor: 'rgb(0, 0, 22)' }}>

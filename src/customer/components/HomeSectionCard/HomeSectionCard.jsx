@@ -1,8 +1,12 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const HomeSectionCard = ({ product }) => {
+
+  const navigate = useNavigate();
+
   return (
-    <div className='group relative overflow-hidden bg-white rounded-lg shadow-lg w-[15rem] mx-3 border border-gray-300 transition duration-300 transform hover:-translate-y-1 hover:shadow-xl'>
+    <div onClick={() => navigate(`/${product.topLevelCategory}/${product.secondLevelCategory}/${product.thirdLevelCategory}`)} className='group relative overflow-hidden bg-white rounded-lg shadow-lg w-[15rem] mx-3 border border-gray-300 transition duration-300 transform hover:-translate-y-1 hover:shadow-xl'>
       <div className='h-[13rem]'>
         <img
           className='object-cover w-full h-full'
